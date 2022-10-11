@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use function PHPSTORM_META\type;
+
 return new class extends Migration
 {
     /**
@@ -13,11 +15,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('memberships', function (Blueprint $table) {
-            $table->foreignId("club_id")->references("club_id")->on("clubs");
-            $table->foreignId("user_id")->references("id")->on("users");
-            $table->primary(["club_id", "user_id"]);
-            $table->foreignId("type")->references("type_id")->on("types");
+        Schema::create('types', function (Blueprint $table) {
+            $table->id("type_id");
+            $table->string("description");
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('memberships');
+        Schema::dropIfExists('types');
     }
 };
